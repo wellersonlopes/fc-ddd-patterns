@@ -1,3 +1,4 @@
+import { Sequelize } from "sequelize-typescript";
 import Order from "../../../../domain/checkout/entity/order";
 import OrderItem from "../../../../domain/checkout/entity/order_item";
 import OrderRepositoryInterface from "../../../../domain/checkout/repository/order-repository.interface";
@@ -7,6 +8,7 @@ import OrderModel from "./order.model";
 export default class OrderRepository implements OrderRepositoryInterface {
   
   async update(entity: Order): Promise<void> {
+
     await OrderModel.destroy(
       {
         where: {

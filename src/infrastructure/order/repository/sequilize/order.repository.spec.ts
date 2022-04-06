@@ -173,6 +173,8 @@ describe("Order repository test", () => {
     const productRepository = new ProductRepository();
     const product = new Product("123", "Product 1", 10);
     await productRepository.create(product);
+    const product2 = new Product("1234", "Product 2", 30);
+    await productRepository.create(product2);
 
     const ordemItem = new OrderItem(
       "1",
@@ -191,15 +193,15 @@ describe("Order repository test", () => {
 
     expect(orderFound).toEqual(order);
 
-    const newOrderItem = new OrderItem("1", product.name, product.price, product.id, 3);
+    const newOrderItem = new OrderItem("2", product2.name, product2.price, product2.id, 3);
 
-    const newOrder = new Order("123", "123", [newOrderItem]);
+    order.addItem(newOrderItem);
 
-    await orderRepository.update(newOrder);
+    await orderRepository.update(order);
 
     const orderUpdated = await orderRepository.find("123");
 
-    expect(orderUpdated).toEqual(newOrder);
+    expect(orderUpdated).toEqual(order);
 
   });
 
